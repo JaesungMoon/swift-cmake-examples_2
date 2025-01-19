@@ -63,3 +63,41 @@ These project build on Linux, macOS, and Windows!
 - `MSVC_RUNTIME_LIBRARY` (*Windows Only*)
   * `MultiThreadedDebugDLL` (`MDd`)
   * `MultiThreadedDLL` (`MD`)
+
+
+HelloMinimalから
+Build Dependencies
+HelloWorld
+
+InteropとVendoringは何なのかわからない
+
+## HelloMinimal
+ninjaの凄さがわかった。
+
+option(BUILD_SHARED_LIBS "Build shared libraries by default" YES)
+入れるとdynamicになる
+
+add_library(HiKit hikit.swift)
+とすれば.aになる
+
+.aだけを使う術がわからないけど
+header(interface)指定がわからないけど
+
+
+## Interop
+c cxx swift全部入れている。
+add_library(L SHARED L.swift)
+と書くとshared libraryを作るらしい
+
+dylibとlinkした実行ファイルはdylibがないとエラーになる。
+
+```
+dyld[2915]: Library not loaded: @rpath/libHiKit.dylib
+  Referenced from: <CA0E2DA3-6707-3C9F-86CE-B49FB30729A0> /Users/namkeumwoo/Documents/git/swift-cmake-examples_/HelloMinimal/hello
+  Reason: tried: '/Users/namkeumwoo/Documents/git/swift-cmake-examples_/HelloMinimal/build/libHiKit.dylib' (no such file), '/System/Volumes/Preboot/Cryptexes/OS/Users/namkeumwoo/Documents/git/swift-cmake-examples_/HelloMinimal/build/libHiKit.dylib' (no such file), '/Users/namkeumwoo/Documents/git/swift-cmake-examples_/HelloMinimal/build/libHiKit.dylib' (no such file), '/System/Volumes/Preboot/Cryptexes/OS/Users/namkeumwoo/Documents/git/swift-cmake-examples_/HelloMinimal/build/libHiKit.dylib' (no such file)
+zsh: abort      ./hello
+```
+
+実行ファイルは必ずそうなるべきかな
+
+もしdylibを後から変えたら別の動きをするのかな
